@@ -172,7 +172,7 @@ def compute_fvd(y_true: torch.Tensor, y_pred: torch.Tensor, max_items: int, devi
     # FVD = squared diff of means + trace(sigma_pred + sigma_true - 2*sqrt(sigma_pred @ sigma_true))
     m = np.square(mu_pred - mu_true).sum()
     try:
-        s, _ = scipy.linalg.sqrtm(np.dot(sigma_pred, sigma_true), disp=False)
+        s, _ = scipy.linalg.sqrtm(np.dot(sigma_pred, sigma_true), disp=False)  # type: ignore
         if np.any(np.iscomplexobj(s)):
             s = np.real(s)
         fvd = np.real(m + np.trace(sigma_pred + sigma_true - s * 2))
